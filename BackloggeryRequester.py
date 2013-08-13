@@ -1,7 +1,7 @@
 import urllib2
 from string import Template
 
-class BackloggeryRequester:
+class GamesRequest:
    """This class requests pages from the backloggery site.
 
    Using a spoofed header this class pulls games lists in html form from
