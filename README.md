@@ -1,4 +1,4 @@
 backloggery-puller
 ==================
 
-This simple python modue can pull down all the games and metadata from someone's backloggery account in a variety of different formats.
+A simple python modue that can pull down all the games and metadata from a backloggery account in a variety of different formats.
