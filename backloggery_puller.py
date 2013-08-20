@@ -1,5 +1,6 @@
 import urllib2
 from string import Template
+from HTMLParser import HTMLParser
 
 class GamesRequest:
    """This class requests pages from the backloggery site.
@@ -45,3 +46,21 @@ class GamesRequest:
          temp_page = self.more_games(no_entries)
       full_page += temp_page
       return full_page
+
+class BacklogHTMLParser(HTMLParser):
+   """A class used to parse the backloggery html pages"""
+   
+   def __init__(self):
+      HTMLParser.__init__(self)
+      self.write_data = False
+      
+   def handle_starttag(self, tag, attrs):
+      if tag == 'b':
+         self.write_data = True
+      else:
+         self.write_data = False
+   
+   def handle_data(self, data):
+      if self.write_data:
+         print data.strip()
+         
