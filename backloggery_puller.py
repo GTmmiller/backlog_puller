@@ -58,15 +58,18 @@ class BacklogHTMLParser(HTMLParser):
    
    def __init__(self):
       HTMLParser.__init__(self)
-      self.write_data = False
-      
+      self.console_name_found = False
+      self.game_block_end = True
+   #note to self: error checking should happen
    def handle_starttag(self, tag, attrs):
-      if tag == 'b':
-         self.write_data = True
-      else:
-         self.write_data = False
-   
-   def handle_data(self, data):
-      if self.write_data:
-         print data.strip()
+      if tag == 'section' and attrs[0][1] == 'system title shadow' and self.game_block_end:
+         self.console_name_found = True
+         self.game_block_end = False
          
+      elif tag == 'section' and attrs[0][1] == 'gamebox systemend':
+         self.game_block_end = True
+         
+   def handle_data(self, data):
+      if self.console_name_found:
+         print data
+         self.console_name_found = False
