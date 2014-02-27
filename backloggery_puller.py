@@ -60,7 +60,10 @@ class BacklogHTMLParser(HTMLParser):
       HTMLParser.__init__(self)
       self.console_name_found = False
       self.game_block_end = True
-   #note to self: error checking should happen
+      self.in_gamerow = False
+      self.found_gamename = False
+      
+   #note to self: error checking should happen eventually
    def handle_starttag(self, tag, attrs):
       if tag == 'section' and attrs[0][1] == 'system title shadow' and self.game_block_end:
          self.console_name_found = True
@@ -68,8 +71,26 @@ class BacklogHTMLParser(HTMLParser):
          
       elif tag == 'section' and attrs[0][1] == 'gamebox systemend':
          self.game_block_end = True
-         
+
+      #We're in the gamerow so we can ignore data
+      elif tag == 'div' and attrs[0][1] == 'gamerow':
+         self.in_gamerow = True
+
+      elif tag == 'b' and self.in_gamerow == False:
+         self.found_gamename = True
+
+   def handle_endtag(self, tag):
+      if self.in_gamerow and tag == 'div':
+         self.in_gamerow = False
+      
    def handle_data(self, data):
       if self.console_name_found:
          print data
          self.console_name_found = False
+
+      #Print the data only if you're in a game box and if the gamerow hasn't
+      #been passed yet
+      elif not self.game_block_end and self.found_gamename:
+         if not data.isspace():
+            print '\t', data.strip()
+            self.found_gamename = False
