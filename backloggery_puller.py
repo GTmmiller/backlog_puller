@@ -79,6 +79,9 @@ class BacklogHTMLParser(HTMLParser):
       elif tag == 'b' and self.in_gamerow == False:
          self.found_gamename = True
 
+      elif tag == 'img' and attrs[1][1] == '16' and attrs[2][1] == '16':
+         print '\t', attrs[0][1]
+         
    def handle_endtag(self, tag):
       if self.in_gamerow and tag == 'div':
          self.in_gamerow = False
