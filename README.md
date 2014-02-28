@@ -6,16 +6,16 @@ A simple python modue that can pull down all the games and metadata from a backl
 Feature List
 ------------
 
-[X] Retrieve HTML containing entire backlog
-	[X] Retrieve one page of HTML
-	[X] Retrieve subsequent page with no overlap
-	[X] Retrieve pages until the end is reached
+[X] Retrieve HTML containing entire backlog  
+&nbsp;&nbsp;&nbsp;&nbsp;[X] Retrieve one page of HTML  
+&nbsp;&nbsp;&nbsp;&nbsp;[X] Retrieve subsequent page with no overlap  
+&nbsp;&nbsp;&nbsp;&nbsp;[X] Retrieve pages until the end is reached  
 
-[] Parse HTML to more useful formats
-	[] Pull basic data from raw HTML
-		[] Pull game name
-		[] Pull completion status
-		[] Pull game console name
-		[] Pull game region
-	[] Format basic data into XML
-	[] Format basic data into JSON
+[] Parse HTML to more useful formats  
+&nbsp;&nbsp;&nbsp;&nbsp;[] Pull basic data from raw HTML  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[] Pull game name  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[] Pull completion status  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[] Pull game console name  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[] Pull game region  
+&nbsp;&nbsp;&nbsp;&nbsp;[] Format basic data into XML  
+&nbsp;&nbsp;&nbsp;&nbsp;[] Format basic data into JSON  
