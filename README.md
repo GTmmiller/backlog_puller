@@ -12,10 +12,9 @@ Feature List
 &nbsp;&nbsp;&nbsp;&nbsp;[X] Retrieve pages until the end is reached  
 
 [] Parse HTML to more useful formats  
-&nbsp;&nbsp;&nbsp;&nbsp;[] Pull basic data from raw HTML  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[] Pull game name  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[] Pull completion status  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[] Pull game console name  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[] Pull game region  
+&nbsp;&nbsp;&nbsp;&nbsp;[X] Pull basic data from raw HTML  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[X] Pull game name  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[X] Pull completion status  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[X] Pull game console name  
 &nbsp;&nbsp;&nbsp;&nbsp;[] Format basic data into XML  
 &nbsp;&nbsp;&nbsp;&nbsp;[] Format basic data into JSON  
