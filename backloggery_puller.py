@@ -58,10 +58,16 @@ class BacklogHTMLParser(HTMLParser):
    
    def __init__(self):
       HTMLParser.__init__(self)
+	  
+      #HTML parsing control variables
       self.console_name_found = False
       self.game_block_end = True
       self.in_gamerow = False
       self.found_gamename = False
+      #dictionary of len(2) string lists
+      self.backlog = {}
+      #placeholder variables for system data
+      self.current_name = ''
       
    #note to self: error checking should happen eventually
    def handle_starttag(self, tag, attrs):
@@ -80,6 +86,7 @@ class BacklogHTMLParser(HTMLParser):
          self.found_gamename = True
 
       elif tag == 'img' and attrs[1][1] == '16' and attrs[2][1] == '16':
+         self.backlog[self.current_name].append([attrs[0][1]])
          print '\t', attrs[0][1]
          
    def handle_endtag(self, tag):
@@ -88,12 +95,22 @@ class BacklogHTMLParser(HTMLParser):
       
    def handle_data(self, data):
       if self.console_name_found:
+         self.backlog[data] = []
+         self.current_name = data
          print data
          self.console_name_found = False
 
       #Print the data only if you're in a game box and if the gamerow hasn't
       #been passed yet
       elif not self.game_block_end and self.found_gamename:
+
          if not data.isspace():
+
+            if len(self.backlog[self.current_name][-1]) == 1:
+               self.backlog[self.current_name][-1].append(data.strip())
+
+            else:
+               self.backlog[self.current_name].append([data.strip()])
+            
             print '\t', data.strip()
             self.found_gamename = False
