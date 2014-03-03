@@ -117,26 +117,26 @@ class BacklogHTMLParser(HTMLParser):
             print '\t', data.strip()
             self.found_gamename = False
 
-#Note to self: consider making this an HTML parse method
-def xml_output(backlog):
-   """ This function takes in the backlog dictionary created in the html parser
-       and converts it to xml. The schema for the XML will be available
-       eventually
-       """
+   #Note to self: throw an error if you have a blank backlog
+   def xml_output(self):
+      """ This method takes in the backlog dictionary created in the html parser
+      and converts it to xml. The schema for the XML will be available
+      eventually
+      """
 
-   console_names = backlog.keys()
-   
-   root = ET.Element("backlog")
-   for console_name in console_names: 
-      console = ET.SubElement(root, "console", name=console_name)
-      for gamedata_list in backlog[console_name]:
-         if(len(gamedata_list) == 2):
-            game = ET.SubElement(console, "game", completion=gamedata_list[0])
-            game.text = gamedata_list[1]
-            
-         else:
-            game = ET.SubElement(console, "game", completion="(-)")
-            game.test = gamedata_list[0]
+      console_names = self.backlog.keys()
+         
+      root = ET.Element("backlog")
+      for console_name in console_names: 
+         console = ET.SubElement(root, "console", name=console_name)
+         for gamedata_list in self.backlog[console_name]:
+            if(len(gamedata_list) == 2):
+               game = ET.SubElement(console, "game", completion=gamedata_list[0])
+               game.text = gamedata_list[1]
+                  
+            else:
+               game = ET.SubElement(console, "game", completion="(-)")
+               game.test = gamedata_list[0]
 
-   ET.dump(root)
-   return ET.tostring(root)
+      ET.dump(root)
+      return ET.tostring(root)
