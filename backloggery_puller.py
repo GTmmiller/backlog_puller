@@ -1,6 +1,8 @@
 import urllib2
+import xml.etree.ElementTree as ET
 from string import Template
 from HTMLParser import HTMLParser
+
 
 class GamesRequest:
    """This class requests pages from the backloggery site.
@@ -114,3 +116,23 @@ class BacklogHTMLParser(HTMLParser):
             
             print '\t', data.strip()
             self.found_gamename = False
+
+#Note to self: consider making this an HTML parse method
+def xml_output(backlog):
+   """ This function takes in the backlog dictionary created in the html parser
+       and converts it to xml. The schema for the XML will be available
+       eventually
+       """
+
+   console_names = backlog.keys()
+   
+   root = Element("backlog")
+   for console_name in console_names: 
+      console = SubElement(root, "console", name=console_name)
+      for gamedata_list in backlog[console_name]:
+         #consider the case without gamedata (ie 
+         game = SubElement(console, "game", completion=gamedata_list[0])
+         game.text = gamedata_list[1]
+
+   dump(root)
+   return root.tostring()
