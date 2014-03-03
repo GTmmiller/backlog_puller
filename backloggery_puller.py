@@ -88,8 +88,8 @@ class BacklogHTMLParser(HTMLParser):
          self.found_gamename = True
 
       elif tag == 'img' and attrs[1][1] == '16' and attrs[2][1] == '16':
-         self.backlog[self.current_name].append([attrs[0][1]])
-         print '\t', attrs[0][1]
+         self.backlog[self.current_name].append([attrs[0][1].strip()])
+         print '\t', attrs[0][1].strip()
          
    def handle_endtag(self, tag):
       if self.in_gamerow and tag == 'div':
@@ -126,13 +126,17 @@ def xml_output(backlog):
 
    console_names = backlog.keys()
    
-   root = Element("backlog")
+   root = ET.Element("backlog")
    for console_name in console_names: 
-      console = SubElement(root, "console", name=console_name)
+      console = ET.SubElement(root, "console", name=console_name)
       for gamedata_list in backlog[console_name]:
-         #consider the case without gamedata (ie 
-         game = SubElement(console, "game", completion=gamedata_list[0])
-         game.text = gamedata_list[1]
+         if(len(gamedata_list) == 2):
+            game = ET.SubElement(console, "game", completion=gamedata_list[0])
+            game.text = gamedata_list[1]
+            
+         else:
+            game = ET.SubElement(console, "game", completion="(-)")
+            game.test = gamedata_list[0]
 
-   dump(root)
-   return root.tostring()
+   ET.dump(root)
+   return ET.tostring(root)
