@@ -17,5 +17,5 @@ Feature List
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[X] Pull completion status  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[X] Pull game console name  
 &nbsp;&nbsp;&nbsp;&nbsp;[X] Format basic data into XML  
-&nbsp;&nbsp;&nbsp;&nbsp;[X] Format basic data into JSON
+&nbsp;&nbsp;&nbsp;&nbsp;[X] Format basic data into JSON  
 &nbsp;&nbsp;&nbsp;&nbsp;[] Format basic data into CSV  
