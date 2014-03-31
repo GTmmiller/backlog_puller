@@ -1,7 +1,9 @@
 import urllib2
 import xml.etree.ElementTree as ET
+import json
 from string import Template
 from HTMLParser import HTMLParser
+
 
 
 class GamesRequest:
@@ -140,3 +142,6 @@ class BacklogHTMLParser(HTMLParser):
 
       ET.dump(root)
       return ET.tostring(root)
+	  
+   def json_output(self):
+      return json.JSONEncoder().encode(self.backlog)
