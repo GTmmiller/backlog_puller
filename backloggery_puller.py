@@ -69,11 +69,13 @@ class GamesRequest:
 
 
 class CompilationAdder(HTMLParser):
-   """A class used to replace compilations with separate games in a backloggery page"""
-   def __init__(self):
-      HTMLParser.__init__(self)
-      
-   
+    """A class used to replace compilations with separate games in
+    a backloggery page. WIP
+    """
+    def __init__(self):
+        HTMLParser.__init__(self)
+
+
 class BacklogHTMLParser(HTMLParser):
    """A class used to parse the backloggery html pages"""
    
