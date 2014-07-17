@@ -52,18 +52,21 @@ class GamesRequest:
             more_games_url, None, self._spoofed_header)
         return urllib2.urlopen(more_games_request).read()
 
-   def get_raw_page(self):
-      """Pull a complete html page containing all of the games and collections in a backloggery account"""
-      no_entries = 0
-      full_page = ''
-      temp_page = self.more_games(no_entries)
-      
-      while temp_page.find(self._request_footer) > -1:
-         full_page += temp_page.split(self._request_footer)[0]
-         no_entries += 50
-         temp_page = self.more_games(no_entries)
-      full_page += temp_page
-      return full_page
+    def get_raw_page(self):
+        """Pull a complete html page containing all of the games and collections
+        in a backloggery account
+        """
+        no_entries = 0
+        full_page = ''
+        temp_page = self.more_games(no_entries)
+
+        while temp_page.find(self._request_footer) > -1:
+            full_page += temp_page.split(self._request_footer)[0]
+            no_entries += 50
+            temp_page = self.more_games(no_entries)
+        full_page += temp_page
+        return full_page
+
 
 class CompilationAdder(HTMLParser):
    """A class used to replace compilations with separate games in a backloggery page"""
