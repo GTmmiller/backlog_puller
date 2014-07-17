@@ -40,13 +40,18 @@ class GamesRequest:
             username=self.username)
         self._spoofed_header['Referer'] = self._referer_template.substitute(
             username=self.username)
-      
-   def more_games(self, start_point):
-      """Perform a call to the backloggery 'more_games' AJAX call to get 50 more games from a specified start point"""
-      more_games_url = self.request_url + self._more_games_template.substitute(entries=str(start_point))
-      more_games_request = urllib2.Request(more_games_url, None, self._spoofed_header)
-      return urllib2.urlopen(more_games_request).read()
-   
+
+    def more_games(self, start_point):
+        """Perform a call to the backloggery 'more_games' AJAX call to get
+        50 more games from a specified start point
+        """
+        more_games_url = self.request_url +
+        self._more_games_template.substitute(entries=str(start_point))
+
+        more_games_request = urllib2.Request(
+            more_games_url, None, self._spoofed_header)
+        return urllib2.urlopen(more_games_request).read()
+
    def get_raw_page(self):
       """Pull a complete html page containing all of the games and collections in a backloggery account"""
       no_entries = 0
