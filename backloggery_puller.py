@@ -77,41 +77,42 @@ class CompilationAdder(HTMLParser):
 
 
 class BacklogHTMLParser(HTMLParser):
-   """A class used to parse the backloggery html pages"""
-   
-   def __init__(self):
-      HTMLParser.__init__(self)
-	  
-      #HTML parsing control variables
-      self.console_name_found = False
-      self.game_block_end = True
-      self.in_gamerow = False
-      self.found_gamename = False
-      #dictionary of len(2) string lists
-      self.backlog = {}
-      #placeholder variables for system data
-      self.current_name = ''
-      
-   #note to self: error checking should happen eventually
-   def handle_starttag(self, tag, attrs):
-      if tag == 'section' and attrs[0][1] == 'system title shadow' and self.game_block_end:
-         self.console_name_found = True
-         self.game_block_end = False
-         
-      elif tag == 'section' and attrs[0][1] == 'gamebox systemend':
-         self.game_block_end = True
+    """A class used to parse the backloggery html pages"""
 
-      #We're in the gamerow so we can ignore data
-      elif tag == 'div' and attrs[0][1] == 'gamerow':
-         self.in_gamerow = True
+    def __init__(self):
+        HTMLParser.__init__(self)
 
-      elif tag == 'b' and self.in_gamerow == False:
-         self.found_gamename = True
+        # HTML parsing control variables
+        self.console_name_found = False
+        self.game_block_end = True
+        self.in_gamerow = False
+        self.found_gamename = False
+        # dictionary of len(2) string lists
+        self.backlog = {}
+        # placeholder variables for system data
+        self.current_name = ''
 
-      elif tag == 'img' and attrs[1][1] == '16' and attrs[2][1] == '16':
-         self.backlog[self.current_name].append([attrs[0][1].strip()])
-         print '\t', attrs[0][1].strip()
-         
+    # note to self: error checking should happen eventually
+    def handle_starttag(self, tag, attrs):
+        if tag == 'section' and attrs[0][1] == 'system title shadow'
+        and self.game_block_end:
+            self.console_name_found = True
+            self.game_block_end = False
+
+        elif tag == 'section' and attrs[0][1] == 'gamebox systemend':
+            self.game_block_end = True
+
+        # We're in the gamerow so we can ignore data
+        elif tag == 'div' and attrs[0][1] == 'gamerow':
+            self.in_gamerow = True
+
+        elif tag == 'b' and self.in_gamerow is False:
+            self.found_gamename = True
+
+        elif tag == 'img' and attrs[1][1] == '16' and attrs[2][1] == '16':
+            self.backlog[self.current_name].append([attrs[0][1].strip()])
+            print '\t', attrs[0][1].strip()
+
    def handle_endtag(self, tag):
       if self.in_gamerow and tag == 'div':
          self.in_gamerow = False
