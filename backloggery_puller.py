@@ -113,55 +113,56 @@ class BacklogHTMLParser(HTMLParser):
             self.backlog[self.current_name].append([attrs[0][1].strip()])
             print '\t', attrs[0][1].strip()
 
-   def handle_endtag(self, tag):
-      if self.in_gamerow and tag == 'div':
-         self.in_gamerow = False
-      
-   def handle_data(self, data):
-      if self.console_name_found:
-         self.backlog[data] = []
-         self.current_name = data
-         print data
-         self.console_name_found = False
+    def handle_endtag(self, tag):
+        if self.in_gamerow and tag == 'div':
+            self.in_gamerow = False
 
-      #Print the data only if you're in a game box and if the gamerow hasn't
-      #been passed yet
-      elif not self.game_block_end and self.found_gamename:
+    def handle_data(self, data):
+        if self.console_name_found:
+            self.backlog[data] = []
+            self.current_name = data
+            print data
+            self.console_name_found = False
 
-         if not data.isspace():
+        # Print the data only if you're in a game box and if the gamerow
+        # hasn't been passed yet
+        elif not self.game_block_end and self.found_gamename:
 
-            if len(self.backlog[self.current_name][-1]) == 1:
-               self.backlog[self.current_name][-1].append(data.strip())
+            if not data.isspace():
 
-            else:
-               self.backlog[self.current_name].append([data.strip()])
-            
-            print '\t', data.strip()
-            self.found_gamename = False
+                if len(self.backlog[self.current_name][-1]) == 1:
+                    self.backlog[self.current_name][-1].append(data.strip())
 
-   #Note to self: throw an error if you have a blank backlog
-   def xml_output(self):
-      """ This method takes in the backlog dictionary created in the html parser
-      and converts it to xml. The schema for the XML will be available
-      eventually
-      """
+                else:
+                    self.backlog[self.current_name].append([data.strip()])
 
-      console_names = self.backlog.keys()
-         
-      root = ET.Element("backlog")
-      for console_name in console_names: 
-         console = ET.SubElement(root, "console", name=console_name)
-         for gamedata_list in self.backlog[console_name]:
-            if(len(gamedata_list) == 2):
-               game = ET.SubElement(console, "game", completion=gamedata_list[0])
-               game.text = gamedata_list[1]
-                  
-            else:
-               game = ET.SubElement(console, "game", completion="(-)")
-               game.test = gamedata_list[0]
+                print '\t', data.strip()
+                self.found_gamename = False
 
-      ET.dump(root)
-      return ET.tostring(root)
-	  
-   def json_output(self):
-      return json.JSONEncoder().encode(self.backlog)
+    # Note to self: throw an error if you have a blank backlog
+    def xml_output(self):
+        """ This method takes in the backlog dictionary created
+        in the html parser and converts it to xml.
+        The schema for the xml will be available eventually
+        """
+
+        console_names = self.backlog.keys()
+        root = ET.Element("backlog")
+
+        for console_name in console_names:
+            console = ET.SubElement(root, "console", name=console_name)
+            for gamedata_list in self.backlog[console_name]:
+                if(len(gamedata_list) == 2):
+                    game = ET.SubElement(console, "game",
+                                         completion=gamedata_list[0])
+                    game.text = gamedata_list[1]
+
+                else:
+                    game = ET.SubElement(console, "game", completion="(-)")
+                    game.test = gamedata_list[0]
+
+        ET.dump(root)
+        return ET.tostring(root)
+
+    def json_output(self):
+        return json.JSONEncoder().encode(self.backlog)
