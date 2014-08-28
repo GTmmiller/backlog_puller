@@ -45,7 +45,7 @@ class GamesRequest:
         """Perform a call to the backloggery 'more_games' AJAX call to get
         50 more games from a specified start point
         """
-        more_games_url = self.request_url +
+        more_games_url = self.request_url + \
         self._more_games_template.substitute(entries=str(start_point))
 
         more_games_request = urllib2.Request(
@@ -94,7 +94,7 @@ class BacklogHTMLParser(HTMLParser):
 
     # note to self: error checking should happen eventually
     def handle_starttag(self, tag, attrs):
-        if tag == 'section' and attrs[0][1] == 'system title shadow'
+        if tag == 'section' and attrs[0][1] == 'system title shadow' \
         and self.game_block_end:
             self.console_name_found = True
             self.game_block_end = False
