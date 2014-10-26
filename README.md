@@ -1,14 +1,14 @@
 backloggery-puller
 ==================
 
-`backloggery-puller` is a simple python modlue that can pull a user's complete video game backlog from [The Backloggery](http://www.backloggery.com) given a username. The results can be returned in XML and JSON format as well as a regular ole' python object.
+`backloggery-puller` is a simple python module that can pull a user's complete video game backlog from [The Backloggery](http://www.backloggery.com) given a username. The results can be returned in XML and JSON format as well as a regular ole' python object.
 
 Setup
 =====
 
 Make sure you have python 2.8.x installed.
 
-That's it! `backloggery-puller` only relys on The Python Standard Library to work properly.
+That's it! The `backloggery-puller` module only relies on The Python Standard Library to work properly.
 
 Usage
 =====
