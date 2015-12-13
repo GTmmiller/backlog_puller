@@ -1,5 +1,5 @@
 import urllib2
-import xml.etree.ElementTree as ET
+import xml.etree.ElementTree as ElTree
 import json
 from string import Template
 from HTMLParser import HTMLParser
@@ -45,8 +45,7 @@ class GamesRequest:
         """Perform a call to the backloggery 'more_games' AJAX call to get
         50 more games from a specified start point
         """
-        more_games_url = self.request_url + \
-        self._more_games_template.substitute(entries=str(start_point))
+        more_games_url = self.request_url + self._more_games_template.substitute(entries=str(start_point))
 
         more_games_request = urllib2.Request(
             more_games_url, None, self._spoofed_header)
@@ -94,8 +93,7 @@ class BacklogHTMLParser(HTMLParser):
 
     # note to self: error checking should happen eventually
     def handle_starttag(self, tag, attrs):
-        if tag == 'section' and attrs[0][1] == 'system title shadow' \
-        and self.game_block_end:
+        if tag == 'section' and attrs[0][1] == 'system title shadow' and self.game_block_end:
             self.console_name_found = True
             self.game_block_end = False
 
@@ -147,22 +145,22 @@ class BacklogHTMLParser(HTMLParser):
         """
 
         console_names = self.backlog.keys()
-        root = ET.Element("backlog")
+        root = ElTree.Element("backlog")
 
         for console_name in console_names:
-            console = ET.SubElement(root, "console", name=console_name)
+            console = ElTree.SubElement(root, "console", name=console_name)
             for gamedata_list in self.backlog[console_name]:
-                if(len(gamedata_list) == 2):
-                    game = ET.SubElement(console, "game",
-                                         completion=gamedata_list[0])
+                if len(gamedata_list) == 2:
+                    game = ElTree.SubElement(console, "game",
+                                             completion=gamedata_list[0])
                     game.text = gamedata_list[1]
 
                 else:
-                    game = ET.SubElement(console, "game", completion="(-)")
+                    game = ElTree.SubElement(console, "game", completion="(-)")
                     game.test = gamedata_list[0]
 
-        ET.dump(root)
-        return ET.tostring(root)
+        ElTree.dump(root)
+        return ElTree.tostring(root)
 
     def json_output(self):
         return json.JSONEncoder().encode(self.backlog)
