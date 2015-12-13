@@ -6,14 +6,14 @@ backloggery-puller
 Setup
 =====
 
-Make sure you have python 2.8.x installed.
+Make sure you have python 2.7.x installed.
 
-That's it! The `backloggery-puller` module only relies on The Python Standard Library to work properly.
+That's it! The `backloggery-puller` module only relies on The Python Standard Library to work properly. Other versions of Python 2 might work, but they haven't been tested
 
 Usage
 =====
 
-`backloggery-puller` consists of two major components: A GamesRequest that pulls the raw HTML from The Backloggery, and the BacklogHTMLParser that converts the raw html into more useful forms.
+`backloggery-puller` consists of two major components: A GamesRequest that pulls the raw HTML from The Backloggery, and the BacklogHTMLParser that converts the raw html into more useful output.
 
 **For example:**
 ```python
