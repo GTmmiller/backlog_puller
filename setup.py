@@ -17,7 +17,7 @@ setup(
     description='A python module for pulling data from a backloggery account in a variety of different formats',
     long_description=long_description,
 
-    url='https://github.com/GTmmiller/backloggery-puller',
+    url='https://github.com/GTmmiller/backlog_puller',
 
     author='Steven Miller',
     author_email='msm@gatech.edu',
