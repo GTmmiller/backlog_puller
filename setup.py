@@ -24,7 +24,6 @@ setup(
 
     license='MIT',
 
-    # See https://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
         'Development Status :: 4 - Beta',
 
@@ -48,7 +47,7 @@ setup(
 
     entry_points={
         'console_scripts': [
-            'backlog_pull=backlog_pull:main',
+            'backlog_pull=backlog_puller.__main__:main',
         ],
     },
 )

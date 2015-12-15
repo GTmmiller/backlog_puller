@@ -1,10 +1,10 @@
-import backlog_puller
 import sys
+import backlog_puller
 
 
-def main(argv):
-    if len(argv) == 2:
-        request = backlog_puller.GamesRequest(argv[1])
+def main():
+    if len(sys.argv) == 2:
+        request = backlog_puller.GamesRequest(sys.argv[1])
         parser = backlog_puller.BacklogHTMLParser()
         parser.feed(request.get_raw_page())
         print parser.backlog
@@ -12,4 +12,4 @@ def main(argv):
         print("Incorrect number of arguments. Please pass just your username and try again")
 
 if __name__ == 'main':
-    main(sys.argv)
+    main()
