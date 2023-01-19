@@ -1,13 +1,12 @@
-import urllib2
 import xml.etree.ElementTree as ElTree
 import json
 from string import Template
-from HTMLParser import HTMLParser
+from urllib import request
+from html.parser import HTMLParser
 
 
 class GamesRequest:
     """This class requests pages from the backloggery site.
-
     Using a spoofed header this class pulls games lists in html form from
     a given backloggery page. The only thing it takes as a parameter is a
     username so an object must be made for every username you want to make
@@ -47,9 +46,10 @@ class GamesRequest:
         """
         more_games_url = self.request_url + self._more_games_template.substitute(entries=str(start_point))
 
-        more_games_request = urllib2.Request(
-            more_games_url, None, self._spoofed_header)
-        return urllib2.urlopen(more_games_request).read()
+        return request.urlopen(more_games_url).read().decode()
+        #more_games_request = request.Request(
+        #    more_games_url, None, self._spoofed_header)
+        #return request.urlopen(more_games_request).read()
 
     def get_raw_page(self):
         """Pull a complete html page containing all of the games and collections
@@ -109,7 +109,7 @@ class BacklogHTMLParser(HTMLParser):
 
         elif tag == 'img' and attrs[1][1] == '16' and attrs[2][1] == '16':
             self.backlog[self.current_name].append([attrs[0][1].strip()])
-            print '\t', attrs[0][1].strip()
+            print('\t', attrs[0][1].strip())
 
     def handle_endtag(self, tag):
         if self.in_gamerow and tag == 'div':
@@ -119,7 +119,7 @@ class BacklogHTMLParser(HTMLParser):
         if self.console_name_found:
             self.backlog[data] = []
             self.current_name = data
-            print data
+            print(data)
             self.console_name_found = False
 
         # Print the data only if you're in a game box and if the gamerow
@@ -134,7 +134,7 @@ class BacklogHTMLParser(HTMLParser):
                 else:
                     self.backlog[self.current_name].append([data.strip()])
 
-                print '\t', data.strip()
+                print('\t', data.strip())
                 self.found_gamename = False
 
     # Note to self: throw an error if you have a blank backlog
@@ -152,7 +152,7 @@ class BacklogHTMLParser(HTMLParser):
             for gamedata_list in self.backlog[console_name]:
                 if len(gamedata_list) == 2:
                     game = ElTree.SubElement(console, "game",
-                                             completion=gamedata_list[0])
+                                                            completion=gamedata_list[0])
                     game.text = gamedata_list[1]
 
                 else:
