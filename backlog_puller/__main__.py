@@ -7,7 +7,7 @@ def main():
         request = backlog_puller.GamesRequest(sys.argv[1])
         parser = backlog_puller.BacklogHTMLParser()
         parser.feed(request.get_raw_page())
-        print parser.backlog
+        print(parser.backlog)
     else:
         print("Incorrect number of arguments. Please pass just your username and try again")
 
