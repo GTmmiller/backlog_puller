@@ -1,3 +1,7 @@
+As of May 22nd 2024, [The Backloggery has had a total UI redesign](https://www.patreon.com/posts/remake-launch-104736678) rendering this package unusable. If you want similar functionality, [The Backloggery now has a CSV export function](https://www.patreon.com/posts/site-update-v1-1-108426624).
+
+Thank you so much to everyone who used this project, asked for new features, and made contributions!
+
 backlog_puller
 ==============
 
